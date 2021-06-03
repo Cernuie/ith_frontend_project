@@ -14,9 +14,13 @@ export default {
     }));
     //initializes an other position for putting down marker later
     const otherPos = ref(null);
+    //inits a loader as per js api loader documentation
+    //creates the map on mount
     const loader = new Loader({ apiKey: GOOGLE_MAPS_API_KEY });
     const mapDiv = ref(null);
     let map = ref(null);
+    let marker = ref(null);
+    //let infowindow = ref(null)
     let clickListener = null;
     onMounted(async () => {
       //when component loads, waits for the loader and then creates a map
@@ -26,20 +30,38 @@ export default {
         center: currPos.value,
         zoom: 10,
       });
-      new google.maps.Marker({
+      marker.value = new google.maps.Marker({
         position: { lat: 43.6532, lng: -79.3832 },
         map: map.value,
         title: "Hello World!",
       });
+      // infowindow = new google.maps.InfoWindow({
+      //   content: "<h1> Hello! </h1>"
+      // })
+      // markerListener = marker.value.addListener(
+      //   "click",
+      //   () => {infowindow.open(map, marker)
+      //   })
       //adds a click listener that records the latlong of the click to use for creating the marker
       clickListener = map.value.addListener(
         "click",
         ({ latLng: { lat, lng } }) =>
-          (otherPos.value = { lat: lat(), lng: lng() })
+        (otherPos.value = { lat: lat(), lng: lng() })
       );
+      secondClickListener = map.value.addListener(
+        "click",
+        ({latLng: {lat, lng } }) => 
+                (new google.maps.Marker({
+        position: { lat: lat(), lng: lng() },
+        map: map.value,
+        title: "Hello World!",
+      }))
+
+      )
     });
     onUnmounted(async () => {
       if (clickListener) clickListener.remove();
+      if (secondClickListener) secondClickListener.remove();
     });
     return { currPos, otherPos, mapDiv };
   },
