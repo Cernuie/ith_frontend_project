@@ -27,8 +27,8 @@ export default {
         zoom: 10,
       });
       new google.maps.Marker({
-        position: { lat: 43.7532, lng: -79.3832 },
-        setMap : map,
+        position: { lat: 43.6532, lng: -79.3832 },
+        map: map.value,
         title: "Hello World!",
       });
       //adds a click listener that records the latlong of the click to use for creating the marker
@@ -44,6 +44,14 @@ export default {
     return { currPos, otherPos, mapDiv };
   },
   methods: {
+    dropMarker(position, title) {
+      let marker = new google.maps.Marker({
+        position: position,
+        setMap: map,
+        title: title
+      });
+      this.map.addObject(marker)
+    }
   },
 };
 </script>
