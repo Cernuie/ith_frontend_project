@@ -14,25 +14,13 @@
 </template>
 
 <script>
+const axios = require('axios');
 export default {
   name: "GoogleMap",
   data() {
     return {
       center: { lat: 43.6532, lng: -79.3832 },
-      markers: [
-          {
-              position: { lat: 43.6532, lng: -79.3832 },
-              infoText:'Marker 1'
-          },
-          {
-              position:{ lat: 43.6532, lng: -79.4832 },
-              infoText:'Marker 2'
-          },
-          {
-              position:{ lat: 43.7532, lng: -79.5832 },
-              infoText:'Marker 3'
-          }
-      ],
+      markers: [],
       currentPlace: null,
       infoContent: '',
       infoWindowPos: null,
@@ -47,6 +35,28 @@ export default {
           }
         },
     };
+  },
+  mounted: function() {
+    //do an axios calls to get the markers from backend
+    //if it doesn't work use test markers instead
+    axios.get('localhost:8080/markers') 
+      .then(response => this.markers = response.data)
+      .catch(() => {
+        this.markers = [
+          {
+              position: { lat: 43.6532, lng: -79.3832 },
+              infoText:'Marker 1'
+          },
+          {
+              position:{ lat: 43.6532, lng: -79.4832 },
+              infoText:'Marker 2'
+          },
+          {
+              position:{ lat: 43.7532, lng: -79.5832 },
+              infoText:'Marker 3'
+          }
+      ]
+      })
   },
   methods:{
      toggleInfoWindow: function(marker, idx) {
