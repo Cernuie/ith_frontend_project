@@ -1,5 +1,5 @@
 # ith_frontend_vue2
-
+If running locally with backend, run backend first before running the frontend. 
 ## Project setup
 ```
 npm install
