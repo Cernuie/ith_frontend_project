@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import Login from './components/Login.vue'
-import GoogleMap from './components/GoogleMap.vue'
+import Home from './components/Home.vue'
 import * as VueGoogleMaps from "vue2-google-maps"
 const GOOGLE_MAPS_API_KEY = "AIzaSyD3UrjtZOyQfkcx10D9R0J3kiVlIzBO-Ac";
 
@@ -12,7 +12,7 @@ Vue.use(VueRouter)
 
 const routes = [
   { path: '/login', component: Login},
-  { path: '/', component: GoogleMap},
+  { path: '/', component: Home},
 ];
 
 const router = new VueRouter({

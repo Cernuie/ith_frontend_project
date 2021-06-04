@@ -8,6 +8,7 @@
 </template>
 
 <script>
+const axios = require('axios');
     export default {
         name: 'Login',
         data() {
@@ -21,9 +22,16 @@
         methods: {
             login() {
                 if(this.input.username != "" && this.input.password != "") {
-                    //create axios calls
-                    console.log("username and pass sent to backend")
-                    
+                    //axios post to send to backend
+                    //since there's no working backend yet we console log with catch
+                    axios.post("localhost:8080/login")
+                    .then(response => {
+                      localStorage.setItem('token', response.data)
+                    })
+                    .catch(() => {
+                      console.log("username and pass sent to backend")
+                    })
+
                 } else {
                     console.log("A username and password must be present");
                 }
