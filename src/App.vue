@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <google-map />
+    <Navbar />
+    <router-view/>
   </div>
 </template>
 
 <script>
-import GoogleMap from "./components/GoogleMap";
 
+import Navbar from "./components/Navbar";
 export default {
   name: 'App',
   components: {
-    GoogleMap
+    Navbar,
   }
 }
 </script>
